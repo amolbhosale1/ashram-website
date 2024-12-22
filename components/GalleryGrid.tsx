@@ -47,11 +47,11 @@ export default function GalleryGrid({ showAll = false }: GalleryGridProps) {
   const displayedImages = showAll ? images : images.slice(0, 6);
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {displayedImages.map((image, index) => (
         <div 
           key={index} 
-          className="relative h-64 overflow-hidden rounded-lg shadow-lg group"
+          className="relative h-64 overflow-hidden rounded-sm shadow-sm group"
         >
           <Image
             src={image.src}

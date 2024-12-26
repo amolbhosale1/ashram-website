@@ -2,6 +2,9 @@
 import { Facebook, Instagram, Twitter, Mail } from "lucide-react";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { translations } from "@/lib/i18n/translations";
+import { motion } from "framer-motion";
+import Link from "next/link";
+
 export default function Footer() {
   const { language } = useLanguage();
 
@@ -21,25 +24,28 @@ export default function Footer() {
             </h3>
             <ul className="space-y-2">
               <li>
-                <a href="#about" className="text-saffron-100 hover:text-white">
+                <Link
+                  href="#about"
+                  className="text-saffron-100 hover:text-white"
+                >
                   About
-                </a>
+                </Link>
               </li>
               <li>
-                <a
+                <Link
                   href="#gallery"
                   className="text-saffron-100 hover:text-white"
                 >
                   Gallery
-                </a>
+                </Link>
               </li>
               <li>
-                <a
+                <Link
                   href="#location"
                   className="text-saffron-100 hover:text-white"
                 >
                   Location
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -54,20 +60,30 @@ export default function Footer() {
                 <Instagram className="h-6 w-6" />
               </a>
               <a href="#" className="text-saffron-100 hover:text-white">
-                <Twitter className="h-6 w-6" />
-              </a>
-              <a href="#" className="text-saffron-100 hover:text-white">
                 <Mail className="h-6 w-6" />
               </a>
             </div>
           </div>
         </div>
 
-        <div className="mt-8 pt-8 border-t border-saffron-700 text-center text-saffron-100">
+        <div className="mt-8 pt-8 border-t border-saffron-700 text-center text-saffron-100 flex justify-between">
           <p>
             &copy; {new Date().getFullYear()} {t.footer.title}. All rights
             reserved.
           </p>
+          <motion.p
+            animate={{ scale: [1, 1.1, 1] }}
+            transition={{ duration: 2, repeat: Infinity, repeatType: "loop" }}
+          >
+            Developed & Managed by{" "}
+            <a
+              href="https://www.linkedin.com/in/amol-bhosale-55929022a/"
+              target="_blank"
+              className="underline underline-offset-4 font-extrabold"
+            >
+              Amol Bhosale
+            </a>
+          </motion.p>
         </div>
       </div>
     </footer>

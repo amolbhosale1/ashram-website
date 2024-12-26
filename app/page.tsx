@@ -8,8 +8,11 @@ export default function Home() {
   return (
     <main className="bg-white">
       <Hero />
-      
-      <section id="about" className="py-16 bg-gradient-to-b from-saffron-50 to-white">
+
+      <section
+        id="about"
+        className="py-16 bg-gradient-to-b from-saffron-50 to-white"
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row items-center gap-8">
             <div className="md:w-1/2">
@@ -17,15 +20,16 @@ export default function Home() {
                 Welcome to Babaji Ashram
               </h2>
               <p className="text-lg text-gray-700 mb-8">
-                Founded on the principles of spiritual enlightenment and inner peace, our ashram
-                provides a sacred space for meditation, yoga, and spiritual growth.
+                Founded on the principles of spiritual enlightenment and inner
+                peace, our ashram provides a sacred space for meditation, yoga,
+                and spiritual growth.
               </p>
               <ServicesCarousel />
             </div>
             <div className="md:w-1/2">
               <iframe
                 className="w-full aspect-video rounded-lg shadow-lg"
-                src="https://www.youtube.com/embed/y6XZf3qWm5I"
+                src="https://www.youtube.com/embed/tgbNymZ7vqY?autoplay=1"
                 title="Ashram Introduction"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
@@ -39,7 +43,10 @@ export default function Home() {
         <Gallery />
       </section>
 
-      <section id="location" className="py-16 bg-gradient-to-b from-white to-saffron-50">
+      <section
+        id="location"
+        className="py-16 bg-gradient-to-b from-white to-saffron-50"
+      >
         <Address />
       </section>
 

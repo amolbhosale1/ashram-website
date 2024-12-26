@@ -5,6 +5,9 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { motion, useMotionValueEvent, useScroll } from "motion/react";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
+import { translations } from "@/lib/i18n/translations";
+import LanguageSwitch from "./LanguageSwitch";
 
 export default function Navbar() {
   const { scrollY } = useScroll();
@@ -12,6 +15,9 @@ export default function Navbar() {
   const [hidden, setHidden] = useState({ isHidden: false, isFirstImage: true });
 
   const router = useRouter();
+  const { language } = useLanguage();
+
+  const t = translations[language];
 
   const handleLogoClick = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -53,7 +59,7 @@ export default function Navbar() {
               onClick={handleLogoClick}
             >
               <span className="text-2xl font-bold text-saffron-600">
-                Babaji Ashram
+                {language === "hi" ? "बाबाजी आश्रम" : "Babaji Ashram"}
               </span>
             </Link>
           </div>
@@ -65,7 +71,7 @@ export default function Navbar() {
                 hidden.isFirstImage ? "text-white" : "text-gray-700"
               } hover:text-saffron-600`}
             >
-              About
+              {t.nav.about}
             </Link>
             <Link
               href="#gallery"
@@ -73,7 +79,7 @@ export default function Navbar() {
                 hidden.isFirstImage ? "text-white" : "text-gray-700"
               } hover:text-saffron-600`}
             >
-              Gallery
+              {t.nav.gallery}
             </Link>
             <Link
               href="#location"
@@ -81,11 +87,13 @@ export default function Navbar() {
                 hidden.isFirstImage ? "text-white" : "text-gray-700"
               } hover:text-saffron-600`}
             >
-              Location
+              {t.nav.location}
             </Link>
+            <LanguageSwitch />
           </div>
 
           <div className="md:hidden flex items-center">
+            <LanguageSwitch />
             <button onClick={() => setIsOpen(!isOpen)} className="text-white">
               {isOpen ? (
                 <X className="h-6 w-6" />
@@ -104,19 +112,19 @@ export default function Navbar() {
               href="#about"
               className="block px-3 py-2 text-gray-700 hover:text-saffron-600"
             >
-              About
+              {t.nav.about}
             </Link>
             <Link
               href="#gallery"
               className="block px-3 py-2 text-gray-700 hover:text-saffron-600"
             >
-              Gallery
+              {t.nav.gallery}
             </Link>
             <Link
               href="#location"
               className="block px-3 py-2 text-gray-700 hover:text-saffron-600"
             >
-              Location
+              {t.nav.location}
             </Link>
           </div>
         </div>

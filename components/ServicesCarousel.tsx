@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import { collection, getDocs, orderBy, query } from 'firebase/firestore';
 import {
   Carousel,
   CarouselContent,
@@ -8,35 +10,44 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-
-const services = [
-  {
-    title: "Meditation",
-    description: "Daily guided meditation sessions for inner peace and spiritual growth",
-    time: "6:00 AM - 7:30 AM",
-    teacher: "Swami Prakash",
-  },
-  {
-    title: "Yoga",
-    description: "Traditional Hatha and Ashtanga yoga classes for all levels",
-    time: "8:00 AM - 9:30 AM",
-    teacher: "Guru Priya",
-  },
-  {
-    title: "Pranayama",
-    description: "Ancient breathing techniques for vitality and mental clarity",
-    time: "5:00 PM - 6:00 PM",
-    teacher: "Yogi Ramesh",
-  },
-  {
-    title: "Bhajan",
-    description: "Devotional singing and chanting sessions",
-    time: "7:00 PM - 8:00 PM",
-    teacher: "Sri Bhakti Das",
-  }
-];
+import { db } from "@/lib/firebase";
+import type { Service } from "@/types/service";
 
 export default function ServicesCarousel() {
+  const [services, setServices] = useState<Service[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchServices() {
+      try {
+        const servicesRef = collection(db, 'services');
+        const q = query(servicesRef, orderBy('createdAt', 'asc'));
+        const querySnapshot = await getDocs(q);
+        
+        const servicesData = querySnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        })) as Service[];
+
+        setServices(servicesData);
+      } catch (error) {
+        console.error("Error fetching services:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    fetchServices();
+  }, []);
+
+  if (isLoading) {
+    return (
+      <div className="w-full max-w-xl animate-pulse">
+        <div className="h-48 bg-gray-200 rounded-lg"></div>
+      </div>
+    );
+  }
+
   return (
     <Carousel
       opts={{
@@ -46,8 +57,8 @@ export default function ServicesCarousel() {
       className="w-full max-w-xl"
     >
       <CarouselContent>
-        {services.map((service, index) => (
-          <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/2">
+        {services.map((service) => (
+          <CarouselItem key={service.id} className="md:basis-1/2 lg:basis-1/2">
             <Card className="border-saffron-100 hover:border-saffron-200 transition-colors">
               <CardHeader>
                 <CardTitle className="text-xl text-saffron-700">{service.title}</CardTitle>

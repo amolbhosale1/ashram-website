@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 import { Facebook, Instagram, Twitter, Mail } from "lucide-react";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { translations } from "@/lib/i18n/translations";

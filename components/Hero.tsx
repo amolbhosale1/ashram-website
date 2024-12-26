@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 import BackgroundImage from "./hero/BackgroundImage";
 import ScrollButton from "./hero/ScrollButton";
 import { motion } from "framer-motion";

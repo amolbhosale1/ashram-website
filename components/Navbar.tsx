@@ -2,12 +2,21 @@
 
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { motion, useMotionValueEvent, useScroll } from "motion/react";
+
 export default function Navbar() {
   const { scrollY } = useScroll();
   const [isOpen, setIsOpen] = useState(false);
   const [hidden, setHidden] = useState({ isHidden: false, isFirstImage: true });
+
+  const router = useRouter();
+
+  const handleLogoClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    router.push("/");
+  };
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     const prev = scrollY.getPrevious();
@@ -38,38 +47,42 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex">
-            <a href="#" className="flex-shrink-0 flex items-center">
+            <Link
+              href="#"
+              className="flex-shrink-0 flex items-center"
+              onClick={handleLogoClick}
+            >
               <span className="text-2xl font-bold text-saffron-600">
                 Babaji Ashram
               </span>
-            </a>
+            </Link>
           </div>
 
           <div className=".isHidden md:flex items-center space-x-8">
-            <a
+            <Link
               href="#about"
               className={`${
                 hidden.isFirstImage ? "text-white" : "text-gray-700"
               } hover:text-saffron-600`}
             >
               About
-            </a>
-            <a
+            </Link>
+            <Link
               href="#gallery"
               className={`${
                 hidden.isFirstImage ? "text-white" : "text-gray-700"
               } hover:text-saffron-600`}
             >
               Gallery
-            </a>
-            <a
+            </Link>
+            <Link
               href="#location"
               className={`${
                 hidden.isFirstImage ? "text-white" : "text-gray-700"
               } hover:text-saffron-600`}
             >
               Location
-            </a>
+            </Link>
           </div>
 
           <div className="md:hidden flex items-center">
@@ -87,24 +100,24 @@ export default function Navbar() {
       {isOpen && (
         <div className="md:hidden">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            <a
+            <Link
               href="#about"
               className="block px-3 py-2 text-gray-700 hover:text-saffron-600"
             >
               About
-            </a>
-            <a
+            </Link>
+            <Link
               href="#gallery"
               className="block px-3 py-2 text-gray-700 hover:text-saffron-600"
             >
               Gallery
-            </a>
-            <a
+            </Link>
+            <Link
               href="#location"
               className="block px-3 py-2 text-gray-700 hover:text-saffron-600"
             >
               Location
-            </a>
+            </Link>
           </div>
         </div>
       )}

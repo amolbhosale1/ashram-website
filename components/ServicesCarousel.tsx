@@ -66,7 +66,7 @@ export default function ServicesCarousel() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-gray-600 mb-4 capitalize">
+                <p className="text-gray-600 mb-4 capitalize break-words">
                   {service.description}
                 </p>
                 <div className="space-y-1 text-sm">

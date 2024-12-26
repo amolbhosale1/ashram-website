@@ -2,8 +2,13 @@
 import BackgroundImage from "./hero/BackgroundImage";
 import ScrollButton from "./hero/ScrollButton";
 import { motion } from "framer-motion";
+import { useLanguage } from "@/lib/i18n/LanguageContext";
+import { translations } from "@/lib/i18n/translations";
 
 export default function Hero() {
+  const { language } = useLanguage();
+
+  const t = translations[language];
   return (
     <div className="relative min-h-screen">
       <BackgroundImage
@@ -24,7 +29,7 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.7 }}
           >
-            Welcome to Babaji Ashram
+            {t.hero.welcome}
           </motion.h1>
           <motion.p
             className="mt-6 max-w-2xl mx-auto text-xl text-gray-200"
@@ -32,7 +37,7 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.9 }}
           >
-            A sacred space for spiritual growth, meditation, and inner peace
+            {t.hero.subtitle}
           </motion.p>
         </div>
       </motion.div>

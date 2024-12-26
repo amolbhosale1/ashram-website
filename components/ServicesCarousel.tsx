@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { collection, getDocs, orderBy, query } from 'firebase/firestore';
+import { collection, getDocs, orderBy, query } from "firebase/firestore";
 import {
   Carousel,
   CarouselContent,
@@ -12,7 +12,7 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { db } from "@/lib/firebase";
 import type { Service } from "@/types/service";
-
+import moment from "moment";
 export default function ServicesCarousel() {
   const [services, setServices] = useState<Service[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -20,13 +20,13 @@ export default function ServicesCarousel() {
   useEffect(() => {
     async function fetchServices() {
       try {
-        const servicesRef = collection(db, 'services');
-        const q = query(servicesRef, orderBy('createdAt', 'asc'));
+        const servicesRef = collection(db, "services-events");
+        const q = query(servicesRef, orderBy("time", "asc"));
         const querySnapshot = await getDocs(q);
-        
-        const servicesData = querySnapshot.docs.map(doc => ({
+
+        const servicesData = querySnapshot.docs.map((doc) => ({
           id: doc.id,
-          ...doc.data()
+          ...doc.data(),
         })) as Service[];
 
         setServices(servicesData);
@@ -61,13 +61,24 @@ export default function ServicesCarousel() {
           <CarouselItem key={service.id} className="md:basis-1/2 lg:basis-1/2">
             <Card className="border-saffron-100 hover:border-saffron-200 transition-colors">
               <CardHeader>
-                <CardTitle className="text-xl text-saffron-700">{service.title}</CardTitle>
+                <CardTitle className="text-xl text-saffron-700 capitalize">
+                  {service.title}
+                </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-gray-600 mb-4">{service.description}</p>
+                <p className="text-gray-600 mb-4 capitalize">
+                  {service.description}
+                </p>
                 <div className="space-y-1 text-sm">
-                  <p className="text-saffron-600">🕒 {service.time}</p>
-                  <p className="text-saffron-600">👤 {service.teacher}</p>
+                  <p className="text-saffron-600">
+                    🕒{" "}
+                    {moment
+                      .unix(service.time.seconds)
+                      .format("ddd, Do MMM YYYY, h:mm A")}
+                  </p>
+                  <p className="text-saffron-600 uppercase">
+                    👤 {service.teacher}
+                  </p>
                 </div>
               </CardContent>
             </Card>

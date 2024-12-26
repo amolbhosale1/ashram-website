@@ -1,8 +1,10 @@
 export interface Service {
-    id: string;
-    title: string;
-    description: string;
-    time: string;
-    teacher: string;
-    createdAt: string;
-  }
+  id: string;
+  title: string;
+  description: string;
+  time: {
+    seconds: number;
+    nanoseconds: number;
+  };
+  teacher: string;
+}
